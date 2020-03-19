@@ -1,0 +1,189 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Assertions;
+
+public class DungeonGenerator
+	:
+	MonoBehaviour
+{
+	void Start()
+	{
+		List<RectI> rooms = new List<RectI>();
+		List<LineI> halls = new List<LineI>();
+
+		rooms.Add( new RectI( 0,roomWidth,0,roomHeight ) );
+
+		int lastRoom = 0; // 0=up 1=left 2=right.
+		int nRooms = roomCount;
+		for( int i = 0; i < nRooms; ++i )
+		{
+			int rng;
+			// if( lastRoom == 0 ) rng = Random.Range( 0,2 + 1 );
+			// else if( lastRoom == 1 ) rng = Random.Range( 0,1 + 1 );
+			// else rng = Random.Range( 0,10 ) > 5 ? 0 : 2;
+			rng = Random.Range( 0,2 + 1 );
+			lastRoom = rng;
+			var hallPos = rooms[i].GetRandPoint();
+			halls.Add( new LineI( hallPos,hallPos ) );
+			switch( rng )
+			{
+				case 0:
+					GenerateRoomUp( rooms );
+					// halls[halls.Count - 1].end.y = rooms[rooms.Count - 1].GetRandPoint().y;
+					break;
+				case 1:
+					GenerateRoomLeft( rooms );
+					// halls[halls.Count - 1].end.x = rooms[rooms.Count - 1].GetRandPoint().x;
+					break;
+				default:
+					GenerateRoomRight( rooms );
+					// halls[halls.Count - 1].end.x = rooms[rooms.Count - 1].GetRandPoint().x;
+					break;
+			}
+			GenerateHall( rooms[rooms.Count - 1],rooms[rooms.Count - 2],halls );
+		}
+
+		Vector2 minPos = Vector2.one;
+		Vector2 maxPos = -Vector2.one;
+		foreach( var room in rooms )
+		{
+			var min = room.GetTopLeft();
+			var max = room.GetBotRight();
+			if( min.x < minPos.x ) minPos.x = min.x;
+			if( min.y < minPos.y ) minPos.y = min.y;
+			if( max.x > maxPos.x ) maxPos.x = max.x;
+			if( max.y > maxPos.y ) maxPos.y = max.y;
+		}
+
+		width = ( int )( maxPos.x - minPos.x ) + 2;
+		height = ( int )( maxPos.y - minPos.y ) + 2;
+		minPos -= Vector2.one;
+
+		foreach( var room in rooms ) room.MoveBy( -minPos );
+		foreach( var hall in halls ) hall.MoveBy( -minPos );
+
+		for( int i = 0; i < width * height; ++i )
+		{
+			tiles.Add( 1 );
+		}
+
+		foreach( var room in rooms )
+		{
+			for( int y = room.top; y < room.bot; ++y )
+			{
+				for( int x = room.left; x < room.right; ++x )
+				{
+					tiles[y * width + x] = 0;
+				}
+			}
+		}
+
+		foreach( var hall in halls )
+		{
+			foreach( var pos in hall.RLoop() )
+			{
+				tiles[( int )pos.y * width + ( int )pos.x] = 0;
+			}
+		}
+
+		for( int y = 0; y < height; ++y )
+		{
+			for( int x = 0; x < width; ++x )
+			{
+				if( GetTile( x,y ) > 0 &&
+					( ( GetTile( x,y - 1 ) == 0 ||
+					GetTile( x,y + 1 ) == 0 ||
+					GetTile( x - 1,y ) == 0 ||
+					GetTile( x + 1,y ) == 0 ) ||
+					Random.Range( 0,100 ) > -50 ) )
+				{
+					SpawnWall( new Vector2( x,y ) );
+				}
+			}
+		}
+
+		GameObject floor = GameObject.Find( "Floor" );
+		Assert.IsNotNull( floor );
+		floor.transform.position = new Vector3( width / 2,-1.0f,-height / 2 );
+		floor.transform.localScale = new Vector3( width,1.0f,height );
+	}
+
+	void GenerateRoomUp( List<RectI> rooms )
+	{
+		Assert.IsTrue( rooms.Count > 0 );
+		var lastRoom = rooms[rooms.Count - 1];
+
+		int bot = lastRoom.top - hallLength;
+		int centerX = ( int )lastRoom.GetRandPoint().x;
+		int hWidth = roomWidth / 2;
+		rooms.Add( new RectI( centerX - hWidth,centerX + hWidth,
+			bot - roomHeight,bot ) );
+	}
+	void GenerateRoomLeft( List<RectI> rooms )
+	{
+		Assert.IsTrue( rooms.Count > 0 );
+		var lastRoom = rooms[rooms.Count - 1];
+
+		int right = lastRoom.left - hallLength;
+		int centerY = ( int )lastRoom.GetRandPoint().y;
+		int hHeight = roomHeight / 2;
+		rooms.Add( new RectI( right - roomWidth,right,
+			centerY - hHeight,centerY + hHeight ) );
+	}
+	void GenerateRoomRight( List<RectI> rooms )
+	{
+		Assert.IsTrue( rooms.Count > 0 );
+		var lastRoom = rooms[rooms.Count - 1];
+
+		int left = lastRoom.right + hallLength;
+		int centerY = ( int )lastRoom.GetRandPoint().y;
+		int hHeight = roomHeight / 2;
+		rooms.Add( new RectI( left,left + roomWidth,
+			centerY - hHeight,centerY + hHeight ) );
+	}
+	void GenerateHall( RectI prevRoom,RectI curRoom,List<LineI> halls )
+	{
+		var rand1 = prevRoom.GetRandPoint();
+		var rand2 = curRoom.GetRandPoint();
+		var corner = new Vector2( rand1.x,rand2.y );
+		if( Random.Range( 0,100 ) > 50 ) corner = new Vector2( rand2.x,rand1.y );
+
+		halls.Add( new LineI( rand1,corner ) );
+		halls.Add( new LineI( corner,rand2 ) );
+	}
+
+	GameObject SpawnWall( Vector2 pos )
+	{
+		var wallPos = new Vector3( pos.x,0.0f,-pos.y );
+
+		var wall = Instantiate( wallPrefabs[Random.Range(
+			0,wallPrefabs.Length )] );
+		wall.transform.position = wallPos;
+		int rotations = Random.Range( 0,3 );
+		for( int i = 0; i < rotations; ++i )
+		{
+			wall.transform.Rotate( Vector3.up,90.0f );
+		}
+		return ( wall );
+	}
+
+	int GetTile( int x,int y )
+	{
+		if( x < 0 || x >= width ||
+			y < 0 || y >= height )
+		{
+			return( 0 );
+		}
+		return( tiles[y * width + x] );
+	}
+
+	List<int> tiles = new List<int>();
+	int width;
+	int height;
+	[SerializeField] GameObject[] wallPrefabs = null;
+	[SerializeField] RangeI roomCount = new RangeI( 5,10 );
+	[SerializeField] RangeI roomWidth = new RangeI( 3,7 );
+	[SerializeField] RangeI roomHeight = new RangeI( 3,7 );
+	[SerializeField] RangeI hallLength = new RangeI( 3,5 );
+}
