@@ -28,18 +28,9 @@ public class DungeonGenerator
 			halls.Add( new LineI( hallPos,hallPos ) );
 			switch( rng )
 			{
-				case 0:
-					GenerateRoomUp( rooms );
-					// halls[halls.Count - 1].end.y = rooms[rooms.Count - 1].GetRandPoint().y;
-					break;
-				case 1:
-					GenerateRoomLeft( rooms );
-					// halls[halls.Count - 1].end.x = rooms[rooms.Count - 1].GetRandPoint().x;
-					break;
-				default:
-					GenerateRoomRight( rooms );
-					// halls[halls.Count - 1].end.x = rooms[rooms.Count - 1].GetRandPoint().x;
-					break;
+				case 0: GenerateRoomUp( rooms ); break;
+				case 1: GenerateRoomLeft( rooms ); break;
+				default: GenerateRoomRight( rooms ); break;
 			}
 			GenerateHall( rooms[rooms.Count - 1],rooms[rooms.Count - 2],halls );
 		}
@@ -96,7 +87,7 @@ public class DungeonGenerator
 					GetTile( x,y + 1 ) == 0 ||
 					GetTile( x - 1,y ) == 0 ||
 					GetTile( x + 1,y ) == 0 ) ||
-					Random.Range( 0,100 ) > -50 ) )
+					Random.Range( 0,100 ) > 50 ) )
 				{
 					SpawnWall( new Vector2( x,y ) );
 				}

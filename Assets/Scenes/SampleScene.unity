@@ -193,7 +193,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 4e-45}
+  m_BoundingSphereOverride: {x: 2.19e-43, y: 6e-45, z: 4.673e-42, w: 2.938737e-39}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -232,6 +232,8 @@ MonoBehaviour:
   wallPrefabs:
   - {fileID: 7949227297192972841, guid: 40cc442448788e148b56823a8c707859, type: 3}
   - {fileID: 9060552046964347785, guid: 5842387ff335a67478c84ea3ea11ef9a, type: 3}
+  - {fileID: 4042425806254353711, guid: 50a97891bc94fc140b46145d2b55235e, type: 3}
+  - {fileID: 4084518978314872752, guid: decaeb61fc87851489135394d5e92c28, type: 3}
   roomCount:
     min: 9
     max: 13
