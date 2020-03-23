@@ -95,9 +95,18 @@ public class DungeonGenerator
 		}
 
 		GameObject floor = GameObject.Find( "Floor" );
-		Assert.IsNotNull( floor );
-		floor.transform.position = new Vector3( width / 2,-1.0f,-height / 2 );
+		floor.transform.position = new Vector3( width / 2,0.0f,-height / 2 );
 		floor.transform.localScale = new Vector3( width,1.0f,height );
+
+		GameObject player = GameObject.Find( "Player" );
+		Vector2 randPos;
+		do
+		{
+			randPos.x = Random.Range( 0,width );
+			randPos.y = Random.Range( 0,height );
+		}
+		while( GetTile( ( int )randPos.x,( int )randPos.y ) > 0 );
+		player.transform.position = new Vector3( randPos.x,1.0f,-randPos.y );
 	}
 
 	void GenerateRoomUp( List<RectI> rooms )
@@ -146,7 +155,7 @@ public class DungeonGenerator
 
 	GameObject SpawnWall( Vector2 pos )
 	{
-		var wallPos = new Vector3( pos.x,0.0f,-pos.y );
+		var wallPos = new Vector3( pos.x,1.0f,-pos.y );
 
 		var wall = Instantiate( wallPrefabs[Random.Range(
 			0,wallPrefabs.Length )] );

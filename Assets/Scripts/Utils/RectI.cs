@@ -116,6 +116,12 @@ public class RectI
 			point.y > bot && point.y < top );
 	}
 
+	public Vector2 GetCenter()
+	{
+		return( new Vector2( ( left + right ) / 2.0f,
+			( top + bot ) / 2.0f ) );
+	}
+
 	public int left;
 	public int right;
 	public int top;
