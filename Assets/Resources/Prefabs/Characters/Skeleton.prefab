@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7951620816813655016}
   - component: {fileID: -5071919427281908697}
   - component: {fileID: 1709479709844360166}
+  - component: {fileID: 8227032663750333137}
   - component: {fileID: 1496231785507668257}
   m_Layer: 0
   m_Name: Skeleton
@@ -63,6 +64,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!95 &8227032663750333137
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6341786085459325435}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5e8e66694cfc0fc489abe050050f141b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1496231785507668257
 MonoBehaviour:
   m_ObjectHideFlags: 0

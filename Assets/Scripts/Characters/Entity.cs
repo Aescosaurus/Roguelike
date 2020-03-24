@@ -18,6 +18,7 @@ public class Entity
 	{
 		anim = GetComponent<Animator>();
 		tilemap = FindObjectOfType<DungeonGenerator>();
+		mesh = GetComponentInChildren<MeshRenderer>();
 
 		for( int i = 0; i < ( int )Anim.Count; ++i )
 		{
@@ -36,7 +37,8 @@ public class Entity
 		{
 			transform.position = Vector3.Lerp( transform.position,
 				newPos,moveTimer.GetPercent() * 0.2f );
-			if( moveTimer.Update( Time.deltaTime ) )
+			if( moveTimer.Update( Time.deltaTime ) ||
+				!mesh.isVisible )
 			{
 				moving = false;
 				moveTimer.Reset();
@@ -87,6 +89,7 @@ public class Entity
 	Animator anim;
 	List<AnimationClip> anims = new List<AnimationClip>();
 	DungeonGenerator tilemap;
+	MeshRenderer mesh;
 
 	Vector3 newPos = Vector3.zero;
 	bool moving = false;
