@@ -4,19 +4,13 @@ using UnityEngine;
 
 public class PlayerMove
 	:
-	MonoBehaviour
+	Entity
 {
-	void Start()
+	protected override void Update()
 	{
-		anim = GetComponent<Animator>();
-		tilemap = FindObjectOfType<DungeonGenerator>();
-		var walkAnim = Resources.Load<AnimationClip>( "Animation/Walk" );
-		moveTimer = new Timer( walkAnim.length );
-	}
+		base.Update();
 
-	void Update()
-	{
-		if( !moving )
+		if( !IsMoving() )
 		{
 			Vector3 move = new Vector3( Input.GetAxis( "Horizontal" ),
 				0.0f,Input.GetAxis( "Vertical" ) );
@@ -27,33 +21,8 @@ public class PlayerMove
 
 			if( move.sqrMagnitude > 0.0f )
 			{
-				transform.eulerAngles = new Vector3( 0.0f,
-					Mathf.Atan2( move.x,move.z ) * Mathf.Rad2Deg,0.0f );
-				var pos = transform.position + move;
-				if( tilemap.GetTile( ( int )pos.x,( int )pos.z ) == 0 )
-				{
-					moving = true;
-					anim.SetTrigger( "Walk" );
-					newPos = transform.position + move;
-				}
-			}
-		}
-		else
-		{
-			transform.position = Vector3.Lerp( transform.position,
-				newPos,moveTimer.GetPercent() * 0.2f );
-			if( moveTimer.Update( Time.deltaTime ) )
-			{
-				moving = false;
-				moveTimer.Reset();
-				transform.position = newPos;
+				base.Move( move );
 			}
 		}
 	}
-
-	Animator anim;
-	DungeonGenerator tilemap;
-	bool moving = false;
-	Vector3 newPos = Vector3.zero;
-	Timer moveTimer;
 }
