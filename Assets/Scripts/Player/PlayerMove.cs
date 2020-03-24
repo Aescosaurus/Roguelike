@@ -9,6 +9,7 @@ public class PlayerMove
 	void Start()
 	{
 		anim = GetComponent<Animator>();
+		tilemap = FindObjectOfType<DungeonGenerator>();
 		var walkAnim = Resources.Load<AnimationClip>( "Animation/Walk" );
 		moveTimer = new Timer( walkAnim.length );
 	}
@@ -26,11 +27,15 @@ public class PlayerMove
 
 			if( move.sqrMagnitude > 0.0f )
 			{
-				moving = true;
 				transform.eulerAngles = new Vector3( 0.0f,
 					Mathf.Atan2( move.x,move.z ) * Mathf.Rad2Deg,0.0f );
-				anim.SetTrigger( "Walk" );
-				newPos = transform.position + move;
+				var pos = transform.position + move;
+				if( tilemap.GetTile( ( int )pos.x,( int )pos.z ) == 0 )
+				{
+					moving = true;
+					anim.SetTrigger( "Walk" );
+					newPos = transform.position + move;
+				}
 			}
 		}
 		else
@@ -47,6 +52,7 @@ public class PlayerMove
 	}
 
 	Animator anim;
+	DungeonGenerator tilemap;
 	bool moving = false;
 	Vector3 newPos = Vector3.zero;
 	Timer moveTimer;

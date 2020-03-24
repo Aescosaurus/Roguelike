@@ -31,6 +31,6 @@ public class Timer
 		return( Mathf.Min( 1.0f,curTime / duration ) );
 	}
 
-	float duration;
+	public float duration;
 	float curTime;
 }
