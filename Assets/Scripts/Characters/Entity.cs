@@ -30,7 +30,7 @@ public class Entity
 		transform.position = tilemap.GetRandPos();
 	}
 
-	protected virtual void Update()
+	void Update()
 	{
 		if( moving )
 		{
@@ -41,9 +41,12 @@ public class Entity
 				moving = false;
 				moveTimer.Reset();
 				transform.position = newPos;
+				EndTurn();
 			}
 		}
 	}
+
+	public virtual void ProcessTurn() {}
 
 	protected void Move( Vector3 dir )
 	{
@@ -63,9 +66,22 @@ public class Entity
 		}
 	}
 
+	public void StartTurn()
+	{
+		myTurn = true;
+	}
+	public void EndTurn()
+	{
+		myTurn = false;
+	}
+
 	protected bool IsMoving()
 	{
 		return( moving );
+	}
+	public bool IsMyTurn()
+	{
+		return( myTurn );
 	}
 
 	Animator anim;
@@ -75,4 +91,5 @@ public class Entity
 	Vector3 newPos = Vector3.zero;
 	bool moving = false;
 	Timer moveTimer;
+	bool myTurn = false;
 }

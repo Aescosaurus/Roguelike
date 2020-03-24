@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Skeleton
 	:
-	MonoBehaviour
+	Entity
 {
+	public override void ProcessTurn()
+	{
+		EndTurn();
+	}
 }

@@ -98,6 +98,13 @@ public class DungeonGenerator
 		floor.transform.position = new Vector3( width / 2,0.0f,height / 2 );
 		floor.transform.localScale = new Vector3(
 			( float )width * 1.5f,1.0f,( float )height * 1.5f );
+
+		GameObject enemyPrefab = Resources.Load<GameObject>( "Prefabs/Characters/Skeleton" );
+		for( int i = 0; i < enemyCount; ++i )
+		{
+			var enemy = Instantiate( enemyPrefab );
+			enemy.transform.position = GetRandPos();
+		}
 	}
 
 	void GenerateRoomUp( List<RectI> rooms )
@@ -189,4 +196,5 @@ public class DungeonGenerator
 	[SerializeField] RangeI roomWidth = new RangeI( 3,7 );
 	[SerializeField] RangeI roomHeight = new RangeI( 3,7 );
 	[SerializeField] RangeI hallLength = new RangeI( 3,5 );
+	[SerializeField] RangeI enemyCount = new RangeI( 2,5 );
 }

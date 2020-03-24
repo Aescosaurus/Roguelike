@@ -6,10 +6,8 @@ public class PlayerMove
 	:
 	Entity
 {
-	protected override void Update()
+	public override void ProcessTurn()
 	{
-		base.Update();
-
 		if( !IsMoving() )
 		{
 			Vector3 move = new Vector3( Input.GetAxis( "Horizontal" ),
