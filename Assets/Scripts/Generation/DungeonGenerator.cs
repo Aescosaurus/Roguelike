@@ -171,7 +171,7 @@ public class DungeonGenerator
 		if( x < 0 || x >= width ||
 			y < 0 || y >= height )
 		{
-			return( 0 );
+			return( 1 );
 		}
 		return( tiles[y * width + x] );
 	}

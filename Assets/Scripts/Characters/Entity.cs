@@ -28,7 +28,7 @@ public class Entity
 
 		moveTimer = new Timer( anims[( int )Anim.Walk].length );
 
-		transform.position = tilemap.GetRandPos();
+		// transform.position = tilemap.GetRandPos();
 	}
 
 	void Update()
@@ -54,7 +54,9 @@ public class Entity
 	{
 		if( dir.sqrMagnitude > 0.0f )
 		{
-			Assert.IsTrue( dir.x == 0.0f || dir.y == 0.0f );
+			Assert.IsTrue( dir.y == 0.0f );
+			Assert.IsTrue( dir.x != 0.0f || dir.z != 0.0f );
+			Assert.IsTrue( dir.x == 0.0f || dir.z == 0.0f );
 
 			transform.eulerAngles = new Vector3( 0.0f,
 				Mathf.Atan2( dir.x,dir.z ) * Mathf.Rad2Deg,0.0f );
@@ -88,7 +90,7 @@ public class Entity
 
 	Animator anim;
 	List<AnimationClip> anims = new List<AnimationClip>();
-	DungeonGenerator tilemap;
+	protected DungeonGenerator tilemap;
 	MeshRenderer mesh;
 
 	Vector3 newPos = Vector3.zero;

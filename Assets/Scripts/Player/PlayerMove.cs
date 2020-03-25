@@ -6,6 +6,13 @@ public class PlayerMove
 	:
 	Entity
 {
+	protected override void Start()
+	{
+		base.Start();
+
+		transform.position = tilemap.GetRandPos();
+	}
+
 	public override void ProcessTurn()
 	{
 		if( !IsMoving() )
@@ -19,7 +26,7 @@ public class PlayerMove
 
 			if( move.sqrMagnitude > 0.0f )
 			{
-				base.Move( move );
+				Move( move );
 			}
 		}
 	}

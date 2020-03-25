@@ -9,7 +9,7 @@ public class TurnHandler
 	void Start()
 	{
 		entities.Add( FindObjectOfType<PlayerMove>() );
-		entities.AddRange( FindObjectsOfType<Skeleton>() );
+		entities.AddRange( FindObjectsOfType<Enemy>() );
 	}
 
 	void Update()
