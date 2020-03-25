@@ -105,6 +105,15 @@ public class DungeonGenerator
 			var enemy = Instantiate( enemyPrefab );
 			enemy.transform.position = GetRandPos();
 		}
+
+		List<GameObject> ores = new List<GameObject>();
+		ores.Add( Resources.Load<GameObject>( "Prefabs/Ores/LapisLazuli" ) );
+		ores.Add( Resources.Load<GameObject>( "Prefabs/Ores/Cactus" ) );
+		for( int i = 0; i < oreCount; ++i )
+		{
+			var ore = Instantiate( ores[Random.Range( 0,ores.Count - 1 )] );
+			ore.transform.position = GetRandPos();
+		}
 	}
 
 	void GenerateRoomUp( List<RectI> rooms )
@@ -197,4 +206,5 @@ public class DungeonGenerator
 	[SerializeField] RangeI roomHeight = new RangeI( 3,7 );
 	[SerializeField] RangeI hallLength = new RangeI( 3,5 );
 	[SerializeField] RangeI enemyCount = new RangeI( 2,5 );
+	[SerializeField] RangeI oreCount = new RangeI( 7,10 );
 }
