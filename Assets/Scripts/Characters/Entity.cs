@@ -19,6 +19,7 @@ public class Entity
 		anim = GetComponent<Animator>();
 		tilemap = FindObjectOfType<DungeonGenerator>();
 		mesh = GetComponentInChildren<MeshRenderer>();
+		cam = Camera.main;
 
 		for( int i = 0; i < ( int )Anim.Count; ++i )
 		{
@@ -29,6 +30,7 @@ public class Entity
 		moveTimer = new Timer( anims[( int )Anim.Walk].length );
 
 		// transform.position = tilemap.GetRandPos();
+		Assert.IsNotNull( transform.Find( "Model" ) );
 	}
 
 	void Update()
@@ -38,11 +40,14 @@ public class Entity
 			transform.position = Vector3.Lerp( transform.position,
 				newPos,moveTimer.GetPercent() * 0.2f );
 			if( moveTimer.Update( Time.deltaTime ) ||
-				!mesh.isVisible )
+				/*!mesh.isVisible*/
+				( cam.transform.position - transform.position )
+				.sqrMagnitude > drawDist * drawDist )
 			{
 				moving = false;
 				moveTimer.Reset();
 				transform.position = newPos;
+				anim.Play( "Idle" );
 				EndTurn();
 			}
 		}
@@ -92,9 +97,11 @@ public class Entity
 	List<AnimationClip> anims = new List<AnimationClip>();
 	protected DungeonGenerator tilemap;
 	MeshRenderer mesh;
+	Camera cam;
 
 	Vector3 newPos = Vector3.zero;
 	bool moving = false;
 	Timer moveTimer;
 	bool myTurn = false;
+	const float drawDist = 9.0f;
 }

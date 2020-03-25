@@ -48,10 +48,7 @@ public class Enemy
 			var diff = path[0] - transform.position;
 			Move( diff.normalized );
 		}
-		else
-		{
-			EndTurn();
-		}
+		else EndTurn();
 	}
 
 	List<Vector3> GeneratePath( Vector3 start,Vector3 target )
