@@ -47,6 +47,7 @@ public class Entity
 				moving = false;
 				moveTimer.Reset();
 				transform.position = newPos;
+				anim.ResetTrigger( "Walk" );
 				anim.Play( "Idle" );
 				EndTurn();
 			}
