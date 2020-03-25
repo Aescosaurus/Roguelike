@@ -46,7 +46,8 @@ public class Enemy
 		if( path.Count > 0 )
 		{
 			var diff = path[0] - transform.position;
-			Move( diff.normalized );
+			if( LookAhead( diff ) == null ) Move( diff.normalized );
+			else Move( GetRandDir() );
 		}
 		else EndTurn();
 	}

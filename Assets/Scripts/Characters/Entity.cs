@@ -24,7 +24,7 @@ public class Entity
 		for( int i = 0; i < ( int )Anim.Count; ++i )
 		{
 			anims.Add( Resources.Load<AnimationClip>(
-				"Animation/" + ( ( Anim )i ).ToString() ) );
+				"Animation/Character/" + ( ( Anim )i ).ToString() ) );
 		}
 
 		moveTimer = new Timer( anims[( int )Anim.Walk].length );
@@ -58,14 +58,16 @@ public class Entity
 
 	protected void Move( Vector3 dir )
 	{
-		if( dir.sqrMagnitude > 0.0f )
-		{
-			Assert.IsTrue( dir.y == 0.0f );
-			Assert.IsTrue( dir.x != 0.0f || dir.z != 0.0f );
-			Assert.IsTrue( dir.x == 0.0f || dir.z == 0.0f );
+		Assert.IsTrue( dir.y == 0.0f );
+		Assert.IsTrue( dir.x == 0.0f || dir.z == 0.0f );
+		Assert.IsTrue( dir.x != 0.0f || dir.z != 0.0f );
 
-			transform.eulerAngles = new Vector3( 0.0f,
-				Mathf.Atan2( dir.x,dir.z ) * Mathf.Rad2Deg,0.0f );
+		var objAhead = LookAhead( dir );
+		transform.eulerAngles = new Vector3( 0.0f,
+			Mathf.Atan2( dir.x,dir.z ) * Mathf.Rad2Deg,0.0f );
+
+		if( objAhead == null )
+		{
 			var pos = transform.position + dir;
 			if( tilemap.GetTile( ( int )pos.x,( int )pos.z ) == 0 )
 			{
@@ -92,6 +94,29 @@ public class Entity
 	public bool IsMyTurn()
 	{
 		return( myTurn );
+	}
+	protected GameObject LookAhead( Vector3 dir )
+	{
+		var boxen = Physics.OverlapBox( transform.position + dir,
+			Vector3.one * 0.2f );
+		GameObject actualBox = null;
+		foreach( var box in boxen )
+		{
+			actualBox = box.gameObject;
+		}
+		return( actualBox );
+	}
+	protected Vector3 GetRandDir()
+	{
+		int randX = 0;
+		int randY = 0;
+		while( ( randX == 0 && randY == 0 ) ||
+			( randX != 0 && randY != 0 ) )
+		{
+			randX = Random.Range( -1,2 );
+			randY = Random.Range( -1,2 );
+		}
+		return( new Vector3( randX,0.0f,randY ) );
 	}
 
 	Animator anim;
