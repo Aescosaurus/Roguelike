@@ -15,7 +15,7 @@ public class PlayerMove
 
 	public override void ProcessTurn()
 	{
-		if( !IsMoving() )
+		if( !IsBusy() )
 		{
 			Vector3 move = new Vector3( Input.GetAxis( "Horizontal" ),
 				0.0f,Input.GetAxis( "Vertical" ) );
@@ -26,7 +26,18 @@ public class PlayerMove
 
 			if( move.sqrMagnitude > 0.0f )
 			{
+				var objAhead = LookAhead( move );
 				Move( move );
+
+				if( objAhead != null )
+				{
+					var oreScr = objAhead.GetComponent<Ore>();
+					if( oreScr != null )
+					{
+						Harvest( move );
+						oreScr.Attack();
+					}
+				}
 			}
 		}
 	}

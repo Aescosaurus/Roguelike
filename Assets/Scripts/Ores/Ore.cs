@@ -16,6 +16,10 @@ public class Ore
 		--hp;
 		anim.SetTrigger( "Harvest" );
 		transform.localScale *= 0.8f;
+		if( hp <= 0 )
+		{
+			Destroy( gameObject );
+		}
 	}
 
 	Animator anim;

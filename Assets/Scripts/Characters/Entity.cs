@@ -11,6 +11,7 @@ public class Entity
 	{
 		Idle = 0,
 		Walk,
+		Harvest,
 		Count
 	}
 
@@ -47,8 +48,23 @@ public class Entity
 				moving = false;
 				moveTimer.Reset();
 				transform.position = newPos;
-				anim.ResetTrigger( "Walk" );
-				anim.Play( "Idle" );
+				// anim.ResetTrigger( "Walk" );
+				// for( int i = 0; i < ( int )Anim.Count; ++i )
+				// {
+				// 	anim.ResetTrigger( ( ( Anim )i ).ToString() );
+				// }
+				// anim.Play( "Idle" );
+				PlayAnim( Anim.Idle );
+				EndTurn();
+			}
+		}
+		else if( harvesting )
+		{
+			if( moveTimer.Update( Time.deltaTime ) )
+			{
+				harvesting = false;
+				moveTimer.Reset();
+				PlayAnim( Anim.Idle );
 				EndTurn();
 			}
 		}
@@ -72,10 +88,18 @@ public class Entity
 			if( tilemap.GetTile( ( int )pos.x,( int )pos.z ) == 0 )
 			{
 				moving = true;
-				anim.SetTrigger( "Walk" );
+				// anim.SetTrigger( "Walk" );
+				PlayAnim( Anim.Walk );
 				newPos = transform.position + dir;
 			}
 		}
+	}
+	protected void Harvest( Vector3 dir )
+	{
+		transform.eulerAngles = new Vector3( 0.0f,
+			Mathf.Atan2( dir.x,dir.z ) * Mathf.Rad2Deg,0.0f );
+		PlayAnim( Anim.Harvest );
+		harvesting = true;
 	}
 
 	public void StartTurn()
@@ -86,10 +110,18 @@ public class Entity
 	{
 		myTurn = false;
 	}
-
-	protected bool IsMoving()
+	protected void PlayAnim( Anim a )
 	{
-		return( moving );
+		for( int i = 0; i < ( int )Anim.Count; ++i )
+		{
+			anim.ResetTrigger( ( ( Anim )i ).ToString() );
+		}
+		anim.SetTrigger( a.ToString() );
+	}
+
+	protected bool IsBusy()
+	{
+		return( moving || harvesting );
 	}
 	public bool IsMyTurn()
 	{
@@ -127,6 +159,7 @@ public class Entity
 
 	Vector3 newPos = Vector3.zero;
 	bool moving = false;
+	bool harvesting = false;
 	Timer moveTimer;
 	bool myTurn = false;
 	const float drawDist = 9.0f;
