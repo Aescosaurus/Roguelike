@@ -119,7 +119,7 @@ public class Entity
 		anim.SetTrigger( a.ToString() );
 	}
 
-	protected bool IsBusy()
+	public bool IsBusy()
 	{
 		return( moving || harvesting );
 	}

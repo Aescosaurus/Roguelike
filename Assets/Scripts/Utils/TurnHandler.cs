@@ -19,7 +19,7 @@ public class TurnHandler
 		{
 			curEntity.ProcessTurn();
 		}
-		else
+		else if( !curEntity.IsBusy() )
 		{
 			if( ++turn >= entities.Count ) turn = 0;
 			entities[turn].StartTurn();
