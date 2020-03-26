@@ -37,6 +37,11 @@ public class PlayerMove
 						Harvest( move );
 						oreScr.Attack();
 					}
+					var enemyScr = objAhead.GetComponent<Entity>();
+					if( enemyScr != null )
+					{
+						Attack( move );
+					}
 				}
 			}
 		}

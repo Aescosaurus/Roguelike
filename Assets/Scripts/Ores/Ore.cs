@@ -15,7 +15,6 @@ public class Ore
 	{
 		--hp;
 		anim.SetTrigger( "Harvest" );
-		anim.SetTrigger( "Idle" );
 		transform.localScale *= 0.8f;
 		if( hp <= 0 )
 		{

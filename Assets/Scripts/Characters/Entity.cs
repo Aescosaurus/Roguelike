@@ -12,6 +12,7 @@ public class Entity
 		Idle = 0,
 		Walk,
 		Harvest,
+		Attack,
 		Count
 	}
 
@@ -36,41 +37,46 @@ public class Entity
 
 	void Update()
 	{
-		if( moving )
+		transform.position = Vector3.Lerp( transform.position,
+			newPos,moveTimer.GetPercent() * 0.2f );
+
+		if( ( moving || harvesting || attacking ) &&
+			( moveTimer.Update( Time.deltaTime ) ||
+			( cam.transform.position - transform.position )
+			.sqrMagnitude > drawDist * drawDist ) )
 		{
-			transform.position = Vector3.Lerp( transform.position,
-				newPos,moveTimer.GetPercent() * 0.2f );
-			if( moveTimer.Update( Time.deltaTime ) ||
-				/*!mesh.isVisible*/
-				( cam.transform.position - transform.position )
-				.sqrMagnitude > drawDist * drawDist )
+			moveTimer.Reset();
+			PlayAnim( Anim.Idle );
+
+			if( moving )
 			{
-				moving = false;
-				moveTimer.Reset();
 				transform.position = newPos;
-				// anim.ResetTrigger( "Walk" );
-				// for( int i = 0; i < ( int )Anim.Count; ++i )
-				// {
-				// 	anim.ResetTrigger( ( ( Anim )i ).ToString() );
-				// }
-				// anim.Play( "Idle" );
-				PlayAnim( Anim.Idle );
-				EndTurn();
 			}
-		}
-		else if( harvesting )
-		{
-			if( moveTimer.Update( Time.deltaTime ) )
+			else if( harvesting )
 			{
-				harvesting = false;
-				moveTimer.Reset();
-				PlayAnim( Anim.Idle );
-				EndTurn();
+				if( targetObj != null )
+				{
+					// TODO: Give resources.
+				}
 			}
+			else if( attacking )
+			{
+				var healthScr = targetObj.GetComponent<Health>();
+				if( healthScr != null )
+				{
+					// TODO: More complex damage calc.
+					healthScr.Damage( 1 );
+				}
+			}
+
+			moving = false;
+			harvesting = false;
+			attacking = false;
+			EndTurn();
 		}
 	}
 
-	public virtual void ProcessTurn() {}
+	public virtual void ProcessTurn() { }
 
 	protected void Move( Vector3 dir )
 	{
@@ -87,19 +93,40 @@ public class Entity
 			var pos = transform.position + dir;
 			if( tilemap.GetTile( ( int )pos.x,( int )pos.z ) == 0 )
 			{
-				moving = true;
-				// anim.SetTrigger( "Walk" );
 				PlayAnim( Anim.Walk );
+				targetObj = objAhead;
+				moving = true;
 				newPos = transform.position + dir;
 			}
 		}
 	}
 	protected void Harvest( Vector3 dir )
 	{
-		transform.eulerAngles = new Vector3( 0.0f,
-			Mathf.Atan2( dir.x,dir.z ) * Mathf.Rad2Deg,0.0f );
-		PlayAnim( Anim.Harvest );
-		harvesting = true;
+		var objAhead = LookAhead( dir );
+		if( objAhead != null )
+		{
+			transform.eulerAngles = new Vector3( 0.0f,
+				Mathf.Atan2( dir.x,dir.z ) * Mathf.Rad2Deg,0.0f );
+			PlayAnim( Anim.Harvest );
+			targetObj = objAhead;
+			harvesting = true;
+		}
+	}
+	protected void Attack( Vector3 dir )
+	{
+		var objAhead = LookAhead( dir );
+		if( objAhead != null )
+		{
+			transform.eulerAngles = new Vector3( 0.0f,
+				Mathf.Atan2( dir.x,dir.z ) * Mathf.Rad2Deg,0.0f );
+			var hpScr = objAhead.GetComponent<Health>();
+			if( hpScr != null )
+			{
+				PlayAnim( Anim.Attack );
+				targetObj = objAhead;
+				attacking = true;
+			}
+		}
 	}
 
 	public void StartTurn()
@@ -121,11 +148,11 @@ public class Entity
 
 	public bool IsBusy()
 	{
-		return( moving || harvesting );
+		return ( moving || harvesting || attacking );
 	}
 	public bool IsMyTurn()
 	{
-		return( myTurn );
+		return ( myTurn );
 	}
 	protected GameObject LookAhead( Vector3 dir )
 	{
@@ -134,9 +161,9 @@ public class Entity
 		GameObject actualBox = null;
 		foreach( var box in boxen )
 		{
-			actualBox = box.gameObject;
+			if( box.gameObject != gameObject ) actualBox = box.gameObject;
 		}
-		return( actualBox );
+		return ( actualBox );
 	}
 	protected Vector3 GetRandDir()
 	{
@@ -148,7 +175,7 @@ public class Entity
 			randX = Random.Range( -1,2 );
 			randY = Random.Range( -1,2 );
 		}
-		return( new Vector3( randX,0.0f,randY ) );
+		return ( new Vector3( randX,0.0f,randY ) );
 	}
 
 	Animator anim;
@@ -156,10 +183,12 @@ public class Entity
 	protected DungeonGenerator tilemap;
 	MeshRenderer mesh;
 	Camera cam;
+	GameObject targetObj = null;
 
 	Vector3 newPos = Vector3.zero;
 	bool moving = false;
 	bool harvesting = false;
+	bool attacking = false;
 	Timer moveTimer;
 	bool myTurn = false;
 	const float drawDist = 9.0f;

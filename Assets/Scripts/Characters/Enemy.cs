@@ -46,8 +46,17 @@ public class Enemy
 		if( path.Count > 0 )
 		{
 			var diff = path[0] - transform.position;
-			if( LookAhead( diff ) == null ) Move( diff.normalized );
-			else Move( GetRandDir() );
+			diff.Normalize();
+			var ahead = LookAhead( diff );
+			if( ahead == null ) Move( diff );
+			else if( ahead.GetComponent<PlayerMove>() != null )
+			{
+				Attack( diff );
+			}
+			else
+			{
+				Move( GetRandDir() );
+			}
 		}
 		else EndTurn();
 	}
