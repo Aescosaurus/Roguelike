@@ -99,19 +99,21 @@ public class DungeonGenerator
 		floor.transform.localScale = new Vector3(
 			( float )width * 1.5f,1.0f,( float )height * 1.5f );
 
-		GameObject enemyPrefab = Resources.Load<GameObject>( "Prefabs/Characters/Skeleton" );
+		// GameObject enemyPrefab = Resources.Load<GameObject>( "Prefabs/Characters/Skeleton" );
 		for( int i = 0; i < enemyCount; ++i )
 		{
-			var enemy = Instantiate( enemyPrefab,transform );
+			var enemy = Instantiate( enemyPrefabs[Random.Range(
+				0,enemyPrefabs.Length )],transform );
 			enemy.transform.position = GetRandPos();
 		}
 
-		List<GameObject> ores = new List<GameObject>();
-		ores.Add( Resources.Load<GameObject>( "Prefabs/Ores/LapisLazuli" ) );
-		ores.Add( Resources.Load<GameObject>( "Prefabs/Ores/Cactus" ) );
+		// List<GameObject> ores = new List<GameObject>();
+		// ores.Add( Resources.Load<GameObject>( "Prefabs/Ores/LapisLazuli" ) );
+		// ores.Add( Resources.Load<GameObject>( "Prefabs/Ores/Cactus" ) );
 		for( int i = 0; i < oreCount; ++i )
 		{
-			var ore = Instantiate( ores[Random.Range( 0,ores.Count - 1 )],transform );
+			var ore = Instantiate( orePrefabs[Random.Range(
+				0,orePrefabs.Length - 1 )],transform );
 			ore.transform.position = GetRandPos();
 		}
 	}
@@ -160,19 +162,22 @@ public class DungeonGenerator
 		halls.Add( new LineI( corner,rand2 ) );
 	}
 
-	GameObject SpawnWall( Vector2 pos )
+	void SpawnWall( Vector2 pos )
 	{
-		var wallPos = new Vector3( pos.x,1.0f,pos.y );
+		var wallPos = new Vector3( pos.x,0.0f,pos.y );
 
-		var wall = Instantiate( wallPrefabs[Random.Range(
-			0,wallPrefabs.Length )],transform );
-		wall.transform.position = wallPos;
-		int rotations = Random.Range( 0,3 );
-		for( int i = 0; i < rotations; ++i )
+		for( int i = 0; i < wallHeight; ++i )
 		{
-			wall.transform.Rotate( Vector3.up,90.0f );
+			++wallPos.y;
+			var wall = Instantiate( wallPrefabs[Random.Range(
+				0,wallPrefabs.Length )],transform );
+			wall.transform.position = wallPos;
+			int rotations = Random.Range( 0,3 );
+			for( int j = 0; j < rotations; ++j )
+			{
+				wall.transform.Rotate( Vector3.up,90.0f );
+			}
 		}
-		return ( wall );
 	}
 
 	public int GetTile( int x,int y )
@@ -201,12 +206,13 @@ public class DungeonGenerator
 	int width;
 	int height;
 	[SerializeField] GameObject[] wallPrefabs = null;
-	// [SerializeField] GameObject[] enemyPrefabs = null;
-	// [SerializeField] GameObject[] orePrefabs = null;
+	[SerializeField] GameObject[] enemyPrefabs = null;
+	[SerializeField] GameObject[] orePrefabs = null;
 	[SerializeField] RangeI roomCount = new RangeI( 5,10 );
 	[SerializeField] RangeI roomWidth = new RangeI( 3,7 );
 	[SerializeField] RangeI roomHeight = new RangeI( 3,7 );
 	[SerializeField] RangeI hallLength = new RangeI( 3,5 );
+	[SerializeField] RangeI wallHeight = new RangeI( 1,1 );
 	[SerializeField] RangeI enemyCount = new RangeI( 2,5 );
 	[SerializeField] RangeI oreCount = new RangeI( 7,10 );
 }
