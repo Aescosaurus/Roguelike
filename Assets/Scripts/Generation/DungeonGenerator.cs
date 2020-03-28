@@ -165,12 +165,13 @@ public class DungeonGenerator
 	void SpawnWall( Vector2 pos )
 	{
 		var wallPos = new Vector3( pos.x,0.0f,pos.y );
+		var randWall = wallPrefabs[Random.Range(
+			0,wallPrefabs.Length )];
 
 		for( int i = 0; i < wallHeight; ++i )
 		{
 			++wallPos.y;
-			var wall = Instantiate( wallPrefabs[Random.Range(
-				0,wallPrefabs.Length )],transform );
+			var wall = Instantiate( randWall,transform );
 			wall.transform.position = wallPos;
 			int rotations = Random.Range( 0,3 );
 			for( int j = 0; j < rotations; ++j )
