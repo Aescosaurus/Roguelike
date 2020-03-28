@@ -102,7 +102,7 @@ public class DungeonGenerator
 		GameObject enemyPrefab = Resources.Load<GameObject>( "Prefabs/Characters/Skeleton" );
 		for( int i = 0; i < enemyCount; ++i )
 		{
-			var enemy = Instantiate( enemyPrefab );
+			var enemy = Instantiate( enemyPrefab,transform );
 			enemy.transform.position = GetRandPos();
 		}
 
@@ -111,7 +111,7 @@ public class DungeonGenerator
 		ores.Add( Resources.Load<GameObject>( "Prefabs/Ores/Cactus" ) );
 		for( int i = 0; i < oreCount; ++i )
 		{
-			var ore = Instantiate( ores[Random.Range( 0,ores.Count - 1 )] );
+			var ore = Instantiate( ores[Random.Range( 0,ores.Count - 1 )],transform );
 			ore.transform.position = GetRandPos();
 		}
 	}
@@ -165,7 +165,7 @@ public class DungeonGenerator
 		var wallPos = new Vector3( pos.x,1.0f,pos.y );
 
 		var wall = Instantiate( wallPrefabs[Random.Range(
-			0,wallPrefabs.Length )] );
+			0,wallPrefabs.Length )],transform );
 		wall.transform.position = wallPos;
 		int rotations = Random.Range( 0,3 );
 		for( int i = 0; i < rotations; ++i )
@@ -201,6 +201,8 @@ public class DungeonGenerator
 	int width;
 	int height;
 	[SerializeField] GameObject[] wallPrefabs = null;
+	// [SerializeField] GameObject[] enemyPrefabs = null;
+	// [SerializeField] GameObject[] orePrefabs = null;
 	[SerializeField] RangeI roomCount = new RangeI( 5,10 );
 	[SerializeField] RangeI roomWidth = new RangeI( 3,7 );
 	[SerializeField] RangeI roomHeight = new RangeI( 3,7 );

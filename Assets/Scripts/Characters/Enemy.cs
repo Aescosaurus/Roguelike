@@ -48,15 +48,11 @@ public class Enemy
 			var diff = path[0] - transform.position;
 			diff.Normalize();
 			var ahead = LookAhead( diff );
+
 			if( ahead == null ) Move( diff );
-			else if( ahead.GetComponent<PlayerMove>() != null )
-			{
-				Attack( diff );
-			}
-			else
-			{
-				Move( GetRandDir() );
-			}
+			else if( ahead.GetComponent<PlayerMove>() != null ) Attack( diff );
+			else if( UnityEngine.Random.Range( 0,100 ) < 50 ) Move( GetRandDir() );
+			else EndTurn();
 		}
 		else EndTurn();
 	}
