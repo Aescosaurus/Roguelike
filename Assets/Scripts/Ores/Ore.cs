@@ -9,6 +9,7 @@ public class Ore
 	void Start()
 	{
 		anim = GetComponentInChildren<Animator>();
+		inv = FindObjectOfType<Inventory>();
 	}
 
 	public void Attack()
@@ -18,10 +19,15 @@ public class Ore
 		transform.localScale *= 0.8f;
 		if( hp <= 0 )
 		{
+			inv.AddItem( item );
 			Destroy( gameObject );
 		}
 	}
 
 	Animator anim;
+	Inventory inv;
+
+	[SerializeField] Item item = null;
+
 	int hp = 3;
 }

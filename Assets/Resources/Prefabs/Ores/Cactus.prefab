@@ -78,6 +78,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8860aa08709b244963b71117e7210d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item:
+    name: Cactus
+    type: 0
+    icon: {fileID: 21300000, guid: 1221754debfa6b04ca1ec50a9b7b893f, type: 3}
+    power: 2
+    strength: 1
+    potency: 5
 --- !u!1 &2845658255613863055
 GameObject:
   m_ObjectHideFlags: 0

@@ -105,4 +105,5 @@ public class Enemy
 	}
 
 	PlayerMove player;
+	[SerializeField] Item item;
 }

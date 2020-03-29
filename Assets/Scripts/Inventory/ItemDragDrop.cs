@@ -40,4 +40,5 @@ public class ItemDragDrop
 	RectTransform rTrans;
 	Vector3 origPos;
 	Canvas canv;
+	public Item item;
 }

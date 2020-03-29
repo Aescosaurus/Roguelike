@@ -156,3 +156,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8860aa08709b244963b71117e7210d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item:
+    name: Lapis
+    type: 0
+    icon: {fileID: 0}
+    power: 5
+    strength: 2
+    potency: 1

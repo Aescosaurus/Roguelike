@@ -171,8 +171,8 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -358,7 +358,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.93e-41, y: 1.05e-43, z: 1, w: 0}
+  m_BoundingSphereOverride: {x: 4.545857e-39, y: NaN, z: 2.295886e-39, w: 2.015625}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -493,8 +493,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 484.2, y: 0}
-  m_SizeDelta: {x: 48.5, y: 437.2}
+  m_AnchoredPosition: {x: 522.8, y: 0}
+  m_SizeDelta: {x: 116, y: 1046}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1112872499
 MonoBehaviour:
@@ -505,7 +505,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1112872497}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb903ab238b9e0041876ff4edc47b2eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 983055e87d5cec349a00aba945b1eb09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1112872500
@@ -526,11 +526,11 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 3
+  m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
+  m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
 --- !u!1001 &1160821397
@@ -782,8 +782,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 484.4, y: 0}
-  m_SizeDelta: {x: 55.65, y: 450.1}
+  m_AnchoredPosition: {x: 525.1, y: 0}
+  m_SizeDelta: {x: 158.2, y: 1089.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2075145300
 MonoBehaviour:
@@ -947,5 +947,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4595629177512978315, guid: a678694e9e1fd8f43a7384de0db004b4,
         type: 3}
+    - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
+        type: 3}
+      propertyPath: enemyCount.min
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
+        type: 3}
+      propertyPath: enemyCount.max
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
+        type: 3}
+      propertyPath: oreCount.min
+      value: 99
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
+        type: 3}
+      propertyPath: oreCount.max
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4f39e27902b00b49835fecc716b3c38, type: 3}

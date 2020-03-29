@@ -96,6 +96,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d018709b04cd92488243e3e6436d582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item:
+    name: Bone
+    type: 0
+    icon: {fileID: 0}
+    power: 1
+    strength: 5
+    potency: 2
 --- !u!114 &3884600309234318338
 MonoBehaviour:
   m_ObjectHideFlags: 0

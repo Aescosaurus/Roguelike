@@ -113,7 +113,7 @@ public class DungeonGenerator
 		for( int i = 0; i < oreCount; ++i )
 		{
 			var ore = Instantiate( orePrefabs[Random.Range(
-				0,orePrefabs.Length - 1 )],transform );
+				0,orePrefabs.Length )],transform );
 			ore.transform.position = GetRandPos();
 		}
 	}
