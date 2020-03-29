@@ -42,6 +42,11 @@ public class PlayerMove
 					{
 						Attack( move );
 					}
+					var forgeScr = objAhead.GetComponent<Anvil>();
+					if( forgeScr != null )
+					{
+						// Open crafting menu or something.
+					}
 				}
 			}
 		}

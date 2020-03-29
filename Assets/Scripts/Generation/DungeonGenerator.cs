@@ -99,23 +99,29 @@ public class DungeonGenerator
 		floor.transform.localScale = new Vector3(
 			( float )width * 1.5f,1.0f,( float )height * 1.5f );
 
-		// GameObject enemyPrefab = Resources.Load<GameObject>( "Prefabs/Characters/Skeleton" );
-		for( int i = 0; i < enemyCount; ++i )
-		{
-			var enemy = Instantiate( enemyPrefabs[Random.Range(
-				0,enemyPrefabs.Length )],transform );
-			enemy.transform.position = GetRandPos();
-		}
+		// for( int i = 0; i < enemyCount; ++i )
+		// {
+		// 	var enemy = Instantiate( enemyPrefabs[Random.Range(
+		// 		0,enemyPrefabs.Length )],transform );
+		// 	enemy.transform.position = GetRandPos();
+		// }
+		SpawnEntities( enemyPrefabs,enemyCount );
 
-		// List<GameObject> ores = new List<GameObject>();
-		// ores.Add( Resources.Load<GameObject>( "Prefabs/Ores/LapisLazuli" ) );
-		// ores.Add( Resources.Load<GameObject>( "Prefabs/Ores/Cactus" ) );
-		for( int i = 0; i < oreCount; ++i )
-		{
-			var ore = Instantiate( orePrefabs[Random.Range(
-				0,orePrefabs.Length )],transform );
-			ore.transform.position = GetRandPos();
-		}
+		// for( int i = 0; i < oreCount; ++i )
+		// {
+		// 	var ore = Instantiate( orePrefabs[Random.Range(
+		// 		0,orePrefabs.Length )],transform );
+		// 	ore.transform.position = GetRandPos();
+		// }
+		SpawnEntities( orePrefabs,oreCount );
+
+		// for( int i = 0; i < forgeCount; ++i )
+		// {
+		// 	var forge = Instantiate( forgePrefabs[ Random.Range(
+		// 		0,forgePrefabs.Length )],transform );
+		// 	forge.transform.position = GetRandPos();
+		// }
+		SpawnEntities( forgePrefabs,forgeCount );
 	}
 
 	void GenerateRoomUp( List<RectI> rooms )
@@ -180,6 +186,20 @@ public class DungeonGenerator
 			}
 		}
 	}
+	void SpawnEntities( GameObject[] prefabs,RangeI count )
+	{
+		for( int i = 0; i < count; ++i )
+		{
+			var entity = Instantiate( prefabs[Random.Range(
+				0,prefabs.Length )],transform );
+			entity.transform.position = GetRandPos();
+			int rotations = Random.Range( 0,3 );
+			for( int j = 0; j < rotations; ++j )
+			{
+				entity.transform.Rotate( Vector3.up,90.0f );
+			}
+		}
+	}
 
 	public int GetTile( int x,int y )
 	{
@@ -209,6 +229,7 @@ public class DungeonGenerator
 	[SerializeField] GameObject[] wallPrefabs = null;
 	[SerializeField] GameObject[] enemyPrefabs = null;
 	[SerializeField] GameObject[] orePrefabs = null;
+	[SerializeField] GameObject[] forgePrefabs = null;
 	[SerializeField] RangeI roomCount = new RangeI( 5,10 );
 	[SerializeField] RangeI roomWidth = new RangeI( 3,7 );
 	[SerializeField] RangeI roomHeight = new RangeI( 3,7 );
@@ -216,4 +237,5 @@ public class DungeonGenerator
 	[SerializeField] RangeI wallHeight = new RangeI( 1,1 );
 	[SerializeField] RangeI enemyCount = new RangeI( 2,5 );
 	[SerializeField] RangeI oreCount = new RangeI( 7,10 );
+	[SerializeField] RangeI forgeCount = new RangeI( 1,2 );
 }

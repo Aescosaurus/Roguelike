@@ -907,6 +907,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
         type: 3}
+      propertyPath: forgePrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
+        type: 3}
       propertyPath: enemyPrefabs.Array.data[0]
       value: 
       objectReference: {fileID: 6341786085459325435, guid: c92a6fe650e82cf4cb1fd1d9ea3dbf5c,
@@ -950,22 +955,28 @@ PrefabInstance:
     - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
         type: 3}
       propertyPath: enemyCount.min
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
         type: 3}
       propertyPath: enemyCount.max
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
         type: 3}
       propertyPath: oreCount.min
-      value: 99
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
         type: 3}
       propertyPath: oreCount.max
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
+        type: 3}
+      propertyPath: forgePrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 4309114689316231359, guid: 5e4b14432445a55418a7912ec4599bb0,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4f39e27902b00b49835fecc716b3c38, type: 3}
