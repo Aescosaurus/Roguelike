@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 93036758}
   - component: {fileID: 93036760}
   - component: {fileID: 93036759}
+  - component: {fileID: 93036761}
   m_Layer: 5
   m_Name: Crafting Menu
   m_TagString: Untagged
@@ -299,6 +300,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 93036757}
   m_CullTransparentMesh: 0
+--- !u!114 &93036761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93036757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f14920f433c3e47848c6f507cf1ad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &115523768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,7 +1112,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1473821637}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 93036761}
+        m_MethodName: Craft
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1473821637
@@ -1641,22 +1665,22 @@ PrefabInstance:
     - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
         type: 3}
       propertyPath: enemyCount.min
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
         type: 3}
       propertyPath: enemyCount.max
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
         type: 3}
       propertyPath: oreCount.min
-      value: 8
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
         type: 3}
       propertyPath: oreCount.max
-      value: 10
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
         type: 3}
@@ -1664,5 +1688,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4309114689316231359, guid: 5e4b14432445a55418a7912ec4599bb0,
         type: 3}
+    - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
+        type: 3}
+      propertyPath: forgeCount.min
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265088244869904079, guid: d4f39e27902b00b49835fecc716b3c38,
+        type: 3}
+      propertyPath: forgeCount.max
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4f39e27902b00b49835fecc716b3c38, type: 3}

@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    name: Bone
+    resType: 2
     type: 0
     icon: {fileID: 0}
     power: 1

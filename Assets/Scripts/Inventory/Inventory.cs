@@ -25,10 +25,15 @@ public class Inventory
 		}
 	}
 
+	public void RemoveItem( Item item )
+	{
+		items.Remove( item );
+	}
+
 	IEnumerator UpdateItemUI( GameObject slot,ItemDragDrop itemScr )
 	{
 		yield return( new WaitForEndOfFrame() );
-		itemScr.item.UpdateUI( slot );
+		if( itemScr.item != null ) itemScr.item.UpdateUI( slot );
 	}
 
 	List<Item> items = new List<Item>();

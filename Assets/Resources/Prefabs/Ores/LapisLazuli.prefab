@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    name: Lapis
+    resType: 1
     type: 0
     icon: {fileID: 21300000, guid: 8e09d11a412c1ce46bd6cf97fcaab400, type: 3}
     power: 5

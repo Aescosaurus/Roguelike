@@ -6,7 +6,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Item
 {
-	enum Type
+	public enum Type
 	{
 		Resource,
 		Weapon,
@@ -23,7 +23,7 @@ public class Item
 
 	public void Copy( Item other )
 	{
-		name = other.name;
+		resType = other.resType;
 		type = other.type;
 		icon = other.icon;
 		power = other.power;
@@ -31,10 +31,10 @@ public class Item
 		potency = other.potency;
 	}
 
-	[SerializeField] string name = "";
-	[SerializeField] Type type = Type.Resource;
+	[SerializeField] public ResourceType resType = ResourceType.Cactus;
+	[SerializeField] public Type type = Type.Resource;
 	[SerializeField] public Sprite icon = null;
-	[SerializeField] int power = -1;
-	[SerializeField] int strength = -1;
-	[SerializeField] int potency = -1;
+	[SerializeField] public int power = -1;
+	[SerializeField] public int strength = -1;
+	[SerializeField] public int potency = -1;
 }

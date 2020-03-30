@@ -19,7 +19,6 @@ public class CraftingSlot
 			transform.GetChild( 0 ).GetComponent<Image>()
 				.sprite = item.item.icon;
 			item.gameObject.SetActive( false );
-			print( item.gameObject.activeSelf );
 		}
 	}
 
@@ -29,7 +28,6 @@ public class CraftingSlot
 		{
 			item.gameObject.SetActive( true );
 			item.cg.blocksRaycasts = true;
-			print( item.gameObject.activeSelf );
 			item = null;
 			transform.GetChild( 0 ).GetComponent<Image>()
 				.sprite = null;
