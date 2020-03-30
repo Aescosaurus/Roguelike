@@ -6,5 +6,16 @@ public class Anvil
 	:
 	MonoBehaviour
 {
+	void Start()
+	{
+		craftingMenu = GameObject.Find( "Canvas" )
+			.transform.Find( "Crafting Menu" ).gameObject;
+	}
 
+	public void BeginCrafting()
+	{
+		craftingMenu.SetActive( true );
+	}
+
+	GameObject craftingMenu;
 }

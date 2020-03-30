@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4415719388577303852}
   - component: {fileID: 4415719388577303855}
   - component: {fileID: 4415719388577303853}
+  - component: {fileID: -9043492910567967605}
   m_Layer: 5
   m_Name: Item
   m_TagString: Untagged
@@ -95,3 +96,15 @@ MonoBehaviour:
     power: -1
     strength: -1
     potency: -1
+--- !u!225 &-9043492910567967605
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4415719388577303849}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

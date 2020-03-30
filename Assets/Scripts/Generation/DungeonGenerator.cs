@@ -198,6 +198,8 @@ public class DungeonGenerator
 			{
 				entity.transform.Rotate( Vector3.up,90.0f );
 			}
+			var entityScr = entity.GetComponent<Entity>();
+			if( entityScr != null ) entityScr.UpdatePos();
 		}
 	}
 

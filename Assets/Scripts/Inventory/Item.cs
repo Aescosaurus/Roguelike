@@ -33,7 +33,7 @@ public class Item
 
 	[SerializeField] string name = "";
 	[SerializeField] Type type = Type.Resource;
-	[SerializeField] Sprite icon = null;
+	[SerializeField] public Sprite icon = null;
 	[SerializeField] int power = -1;
 	[SerializeField] int strength = -1;
 	[SerializeField] int potency = -1;

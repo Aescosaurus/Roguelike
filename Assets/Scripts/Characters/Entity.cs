@@ -137,6 +137,10 @@ public class Entity
 	{
 		myTurn = false;
 	}
+	public void UpdatePos()
+	{
+		newPos = transform.position;
+	}
 	protected void PlayAnim( Anim a )
 	{
 		for( int i = 0; i < ( int )Anim.Count; ++i )
@@ -185,7 +189,7 @@ public class Entity
 	Camera cam;
 	GameObject targetObj = null;
 
-	Vector3 newPos = Vector3.zero;
+	Vector3 newPos;
 	bool moving = false;
 	bool harvesting = false;
 	bool attacking = false;

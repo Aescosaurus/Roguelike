@@ -11,6 +11,10 @@ public class PlayerMove
 		base.Start();
 
 		transform.position = tilemap.GetRandPos();
+		UpdatePos();
+
+		craftingMenu = GameObject.Find( "Canvas" )
+			.transform.Find( "Crafting Menu" ).gameObject;
 	}
 
 	public override void ProcessTurn()
@@ -26,6 +30,7 @@ public class PlayerMove
 
 			if( move.sqrMagnitude > 0.0f )
 			{
+				craftingMenu.SetActive( false );
 				var objAhead = LookAhead( move );
 				Move( move );
 
@@ -45,10 +50,12 @@ public class PlayerMove
 					var forgeScr = objAhead.GetComponent<Anvil>();
 					if( forgeScr != null )
 					{
-						// Open crafting menu or something.
+						forgeScr.BeginCrafting();
 					}
 				}
 			}
 		}
 	}
+
+	GameObject craftingMenu;
 }

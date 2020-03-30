@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 public class ItemDragDrop
 	:
 	MonoBehaviour,
-	IPointerDownHandler,
 	IBeginDragHandler,
 	IEndDragHandler,
 	IDragHandler
@@ -16,11 +15,13 @@ public class ItemDragDrop
 		rTrans = GetComponent<RectTransform>();
 		origPos = transform.position;
 		canv = FindObjectOfType<Canvas>();
+		cg = GetComponent<CanvasGroup>();
 	}
 
 	public void OnBeginDrag( PointerEventData eventData )
 	{
 		origPos = transform.position;
+		cg.blocksRaycasts = false;
 	}
 
 	public void OnDrag( PointerEventData eventData )
@@ -31,14 +32,12 @@ public class ItemDragDrop
 	public void OnEndDrag( PointerEventData eventData )
 	{
 		transform.position = origPos;
-	}
-
-	public void OnPointerDown( PointerEventData eventData )
-	{
+		cg.blocksRaycasts = true;
 	}
 
 	RectTransform rTrans;
 	Vector3 origPos;
 	Canvas canv;
+	public CanvasGroup cg;
 	public Item item;
 }

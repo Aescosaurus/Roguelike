@@ -14,15 +14,22 @@ public class TurnHandler
 
 	void Update()
 	{
-		var curEntity = entities[turn];
-		if( curEntity.IsMyTurn() )
+		if( entities[turn] != null )
 		{
-			curEntity.ProcessTurn();
+			var curEntity = entities[turn];
+			if( curEntity.IsMyTurn() )
+			{
+				curEntity.ProcessTurn();
+			}
+			else if( !curEntity.IsBusy() )
+			{
+				if( ++turn >= entities.Count ) turn = 0;
+				entities[turn].StartTurn();
+			}
 		}
-		else if( !curEntity.IsBusy() )
+		else
 		{
-			if( ++turn >= entities.Count ) turn = 0;
-			entities[turn].StartTurn();
+			entities.RemoveAt( turn );
 		}
 	}
 
